@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     # 'meiduo_mall.apps.users.apps.UsersConfig',
     'users.apps.UsersConfig',
+    "verifications.apps.VerificationsConfig",
 ]
 
 MIDDLEWARE = [
@@ -150,8 +151,20 @@ CACHES = {
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
-    }
+    },
+    # 保存短信验证码内容
+    "verify_codes": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis:/127.0.0.1:6379/2",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    },
 }
+
+# from django_redis import get_redis_connection
+# redis_conn = get_redis_connection('verify_codes') # StrictRedis对象
+
 
 # 设置将session存储到缓存中，上一步已经将Django框架缓存设置为了redis，所以session就存到了redis中
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
@@ -212,7 +225,7 @@ LOGGING = {
 # DRF框架配置
 REST_FRAMEWORK = {
     # 设置DRF框架的异常处理函数
-    'EXCEPTION_HANDLER': 'meiduo_mall.utils.exceptions.exception_handler',
+    'EXCEPTION_HANDLER': 'meiduo_test.utils.exceptions.exception_handler',
 }
 
 # 指定Django认证系统所使用的用户模型类
