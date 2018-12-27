@@ -363,3 +363,5 @@ ERROR 2018-12-27 20:53:30,193 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1
 ERROR 2018-12-27 20:55:31,169 exceptions 28 [<verifications.views.SMSCodeView object at 0x7f35f7902f98>] <class 'redis.exceptions.ConnectionError'>
 ERROR 2018-12-27 20:55:31,170 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 507 35
 INFO 2018-12-27 20:58:33,709 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 200 16
+INFO 2018-12-27 21:24:47,940 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 200 16
+WARNING 2018-12-27 21:24:50,143 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 400 38
