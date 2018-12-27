@@ -75,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'meiduo_mall.wsgi.application'
+WSGI_APPLICATION = 'meiduo_test.wsgi.application'
 
 
 # Database
