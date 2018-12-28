@@ -440,3 +440,110 @@ INFO 2018-12-28 14:23:00,764 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1"
 WARNING 2018-12-28 14:23:02,367 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 400 38
 ERROR 2018-12-28 14:23:24,972 exception 80 Invalid HTTP_HOST header: 'api.meiduo.site:8000'. You may need to add 'api.meiduo.site' to ALLOWED_HOSTS.
 WARNING 2018-12-28 14:23:25,213 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 400 70853
+INFO 2018-12-28 16:05:56,773 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 200 34
+INFO 2018-12-28 16:05:56,784 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 200 34
+ERROR 2018-12-28 16:05:57,477 exception 135 Internal Server Error: /sms_codes/17775309063/
+Traceback (most recent call last):
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/local.py", line 319, in _get_current_object
+    return object.__getattribute__(self, '__thing')
+AttributeError: 'PromiseProxy' object has no attribute '__thing'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/kombu/utils/objects.py", line 42, in __get__
+    return obj.__dict__[self.__name__]
+KeyError: 'data'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/loaders/base.py", line 144, in _smart_import
+    return imp(path)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/loaders/base.py", line 104, in import_from_cwd
+    package=package,
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/utils/imports.py", line 104, in import_from_cwd
+    return imp(module, package=package)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/loaders/base.py", line 98, in import_module
+    return importlib.import_module(module, package=package)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 986, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 969, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 956, in _find_and_load_unlocked
+ImportError: No module named 'celery_tasks_config'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 483, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 443, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 480, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/python/Desktop/meiduo_test1/meiduo_test/meiduo_test/apps/verifications/views.py", line 63, in get
+    send_sms_code.delay(mobile, sms_code, expires)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/local.py", line 148, in __getattr__
+    return getattr(self._get_current_object(), name)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/local.py", line 321, in _get_current_object
+    return self.__evaluate__()
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/local.py", line 351, in __evaluate__
+    thing = Proxy._get_current_object(self)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/local.py", line 111, in _get_current_object
+    return loc(*self.__args, **self.__kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/app/base.py", line 453, in _task_from_fun
+    task.bind(self)  # connects task to this app
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/app/task.py", line 319, in bind
+    setattr(cls, attr_name, conf[config_name])
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/utils/collections.py", line 432, in __getitem__
+    return getitem(k)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/utils/collections.py", line 281, in __getitem__
+    return mapping[_key]
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/collections/__init__.py", line 982, in __getitem__
+    if key in self.data:
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/kombu/utils/objects.py", line 44, in __get__
+    value = obj.__dict__[self.__name__] = self.__get(obj)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/app/base.py", line 139, in data
+    return self.callback()
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/app/base.py", line 902, in _finalize_pending_conf
+    conf = self._conf = self._load_config()
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/app/base.py", line 912, in _load_config
+    self.loader.config_from_object(self._config_source)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/loaders/base.py", line 126, in config_from_object
+    obj = self._smart_import(obj, imp=self.import_from_cwd)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/loaders/base.py", line 147, in _smart_import
+    return symbol_by_name(path, imp=imp)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/kombu/utils/imports.py", line 56, in symbol_by_name
+    module = imp(module_name, package=package, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/loaders/base.py", line 104, in import_from_cwd
+    package=package,
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/utils/imports.py", line 104, in import_from_cwd
+    return imp(module, package=package)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/celery/loaders/base.py", line 98, in import_module
+    return importlib.import_module(module, package=package)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 986, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 969, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 956, in _find_and_load_unlocked
+ImportError: No module named 'celery_tasks_config'
+ERROR 2018-12-28 16:05:57,752 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 500 22951
+INFO 2018-12-28 16:14:01,185 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 200 34
+INFO 2018-12-28 16:14:02,531 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 200 16
+INFO 2018-12-28 16:15:43,574 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 200 34
+INFO 2018-12-28 16:15:43,683 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 200 16
+WARNING 2018-12-28 16:16:26,318 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 400 38
+INFO 2018-12-28 16:16:26,463 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 200 34
+INFO 2018-12-28 16:16:26,466 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 200 34
+INFO 2018-12-28 16:25:19,742 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 200 16

@@ -30,7 +30,7 @@ class UsernameCountView(APIView):
         return Response(data)
 
 # 判断手机号是否存在
-# url(r'^mobiles/(?P<mobile>1[3-9]\d{9})/count/$', views.MobileCountView.as_view()),
+# url(r'^mobiles/(?P<mobile>1[3-9]\d{9})/count/$', views.Mc55bileCountView.as_view()),
 
 
 class MobileCountView(APIView):
