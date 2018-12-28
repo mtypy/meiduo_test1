@@ -58,15 +58,12 @@ class SMSCodeView(APIView):
 
         # 3. 使用云通讯发送短信验证码
         expires = constants.SMS_CODE_REDIS_EXPIRES // 60
-        # try:
-        #     res = CCP().send_template_sms(mobile, [sms_code, expires], constants.SEND_SMS_TEMP_ID)
-        # except Exception as e:
-        #     logger.error('发送短信异常: %s' % e)
-        #     return Response({'message': '短信发送异常'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
-        #
-        # if res != 0:
-        #     # 发送短信失败
-        #     return Response({'message': '短信发送失败'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+
+        # # 发出发送短信的任务消息
+        from celery_tasks.sms.tasks import send_sms_code
+        send_sms_code.delay(mobile, sms_code, expires)
+
+
 
         # 4. 返回应答，发送成功
         return Response({'message': 'OK'})
