@@ -30,11 +30,10 @@ class SMSCodeView(APIView):
         3. 使用云通讯发送短信验证码
         4. 返回应答，发送成功
         """
-
         # 获取给`mobile`发送短信标记
         redis_conn = get_redis_connection('verify_codes')  # StrictRedis对象
 
-        send_flag = redis_conn.get('send_flag_%s' % mobile)  # None
+        send_flag = redis_conn.get('send_flag_%s' % mobile) # None
 
         if send_flag:
             return Response({'message': '发送短信过于频繁'}, status=status.HTTP_400_BAD_REQUEST)
@@ -43,16 +42,20 @@ class SMSCodeView(APIView):
         sms_code = '%06d' % random.randint(0, 999999) # 000010
 
         # 2. 在redis中保存短信验证码的内容，以`mobile`为key，以`验证码内容`为value
-        redis_conn = get_redis_connection('verify_codes')  # StrictRedis对象
-
-
-
         # redis_conn.set('<key>', '<value>', '<expries>')
         # redis_conn.setex('<key>', '<expries>', '<value>')
 
-        redis_conn.setex('sms_%s' % mobile, constants.SMS_CODE_REDIS_EXPIRES, sms_code)
+        # 创建redis管道对象
+        pl = redis_conn.pipeline()
 
-        redis_conn.setex('send_flag_%s' % mobile, constants.SEND_SMS_CODE_INTERVAL,1)
+        # 向管道中添加命令
+        pl.setex('sms_%s' % mobile, constants.SMS_CODE_REDIS_EXPIRES, sms_code)
+        # 设置给`mobile`发送短信标记
+        pl.setex('send_flag_%s' % mobile, constants.SEND_SMS_CODE_INTERVAL, 1)
+
+        # 一次性执行管道中所有命令
+        pl.execute()
+
         # 3. 使用云通讯发送短信验证码
         expires = constants.SMS_CODE_REDIS_EXPIRES // 60
         # try:

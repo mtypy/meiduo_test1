@@ -365,3 +365,78 @@ ERROR 2018-12-27 20:55:31,170 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1
 INFO 2018-12-27 20:58:33,709 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 200 16
 INFO 2018-12-27 21:24:47,940 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 200 16
 WARNING 2018-12-27 21:24:50,143 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 400 38
+WARNING 2018-12-27 21:45:48,479 base 152 Not Found: /register.html
+WARNING 2018-12-27 21:45:48,632 basehttp 124 "GET /register.html HTTP/1.1" 404 2162
+INFO 2018-12-27 21:47:29,970 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 200 16
+WARNING 2018-12-27 21:54:00,909 base 152 Not Found: /mobiles/17775309063/count/
+WARNING 2018-12-27 21:54:00,910 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 404 2201
+WARNING 2018-12-27 21:54:01,043 base 152 Not Found: /mobiles/17775309063/count/
+WARNING 2018-12-27 21:54:01,048 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 404 2201
+ERROR 2018-12-27 21:54:01,086 exceptions 28 [<verifications.views.SMSCodeView object at 0x7fa00d542588>] <class 'redis.exceptions.ConnectionError'>
+ERROR 2018-12-27 21:54:01,087 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 507 35
+WARNING 2018-12-27 21:56:51,980 base 152 Not Found: /mobiles/17775309063/count/
+WARNING 2018-12-27 21:56:51,984 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 404 2201
+WARNING 2018-12-27 21:56:59,408 base 152 Not Found: /mobiles/17775309063/count/
+WARNING 2018-12-27 21:56:59,410 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 404 2201
+WARNING 2018-12-27 21:56:59,420 base 152 Not Found: /mobiles/17775309063/count/
+WARNING 2018-12-27 21:56:59,421 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 404 2201
+ERROR 2018-12-27 21:56:59,430 exceptions 28 [<verifications.views.SMSCodeView object at 0x7fa00d554828>] <class 'redis.exceptions.ConnectionError'>
+ERROR 2018-12-27 21:56:59,431 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 507 35
+WARNING 2018-12-27 21:58:57,087 base 152 Not Found: /mobiles/17775309063/count/
+WARNING 2018-12-27 21:58:57,091 base 152 Not Found: /mobiles/17775309063/count/
+WARNING 2018-12-27 21:58:57,096 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 404 2201
+WARNING 2018-12-27 21:58:57,097 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 404 2201
+ERROR 2018-12-27 21:58:57,141 exceptions 28 [<verifications.views.SMSCodeView object at 0x7ff324469f28>] <class 'redis.exceptions.ConnectionError'>
+ERROR 2018-12-27 21:58:57,142 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 507 35
+ERROR 2018-12-27 22:01:35,295 exceptions 28 [<verifications.views.SMSCodeView object at 0x7f53fca66f60>] <class 'redis.exceptions.ConnectionError'>
+ERROR 2018-12-27 22:01:35,296 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 507 35
+ERROR 2018-12-27 22:02:07,284 exceptions 28 [<verifications.views.SMSCodeView object at 0x7f389ac7cf98>] <class 'redis.exceptions.ConnectionError'>
+ERROR 2018-12-27 22:02:07,285 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 507 35
+INFO 2018-12-27 22:02:53,033 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 200 16
+ERROR 2018-12-27 22:03:51,357 exceptions 28 [<verifications.views.SMSCodeView object at 0x7f9fc9737390>] <class 'redis.exceptions.ConnectionError'>
+ERROR 2018-12-27 22:03:51,358 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 507 35
+ERROR 2018-12-27 22:03:55,826 exceptions 28 [<verifications.views.SMSCodeView object at 0x7f9fc973e358>] <class 'redis.exceptions.ConnectionError'>
+ERROR 2018-12-27 22:03:55,828 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 507 35
+ERROR 2018-12-27 22:03:56,836 exceptions 28 [<verifications.views.SMSCodeView object at 0x7f9fc9737048>] <class 'redis.exceptions.ConnectionError'>
+ERROR 2018-12-27 22:03:56,837 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 507 35
+ERROR 2018-12-27 22:03:57,606 exceptions 28 [<verifications.views.SMSCodeView object at 0x7f9fc973ef28>] <class 'redis.exceptions.ConnectionError'>
+ERROR 2018-12-27 22:03:57,608 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 507 35
+WARNING 2018-12-27 22:04:52,393 base 152 Not Found: /mobiles/17775309063/count/
+WARNING 2018-12-27 22:04:52,395 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 404 2201
+ERROR 2018-12-27 22:04:52,496 exceptions 28 [<verifications.views.SMSCodeView object at 0x7f9fc973e710>] <class 'redis.exceptions.ConnectionError'>
+ERROR 2018-12-27 22:04:52,497 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 507 35
+WARNING 2018-12-27 22:04:52,512 base 152 Not Found: /mobiles/17775309063/count/
+WARNING 2018-12-27 22:04:52,513 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 404 2201
+ERROR 2018-12-27 22:07:17,056 exception 80 Invalid HTTP_HOST header: 'api.meiduo.site:8000'. You may need to add 'api.meiduo.site' to ALLOWED_HOSTS.
+ERROR 2018-12-27 22:07:17,073 exception 80 Invalid HTTP_HOST header: 'api.meiduo.site:8000'. You may need to add 'api.meiduo.site' to ALLOWED_HOSTS.
+ERROR 2018-12-27 22:07:17,091 exception 80 Invalid HTTP_HOST header: 'api.meiduo.site:8000'. You may need to add 'api.meiduo.site' to ALLOWED_HOSTS.
+WARNING 2018-12-27 22:07:17,467 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 400 70842
+WARNING 2018-12-27 22:07:17,471 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 400 70798
+WARNING 2018-12-27 22:07:17,517 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 400 70842
+ERROR 2018-12-27 22:15:27,967 exception 80 Invalid HTTP_HOST header: 'api.meiduo.site:8000'. You may need to add 'api.meiduo.site' to ALLOWED_HOSTS.
+ERROR 2018-12-27 22:15:28,034 exception 80 Invalid HTTP_HOST header: 'api.meiduo.site:8000'. You may need to add 'api.meiduo.site' to ALLOWED_HOSTS.
+ERROR 2018-12-27 22:15:28,059 exception 80 Invalid HTTP_HOST header: 'api.meiduo.site:8000'. You may need to add 'api.meiduo.site' to ALLOWED_HOSTS.
+WARNING 2018-12-27 22:15:28,283 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 400 70842
+WARNING 2018-12-27 22:15:28,298 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 400 70798
+WARNING 2018-12-27 22:15:28,299 basehttp 124 "GET /mobiles/17775309063/count/ HTTP/1.1" 400 70842
+ERROR 2018-12-27 22:21:04,824 exception 80 Invalid HTTP_HOST header: 'api.meiduo.site:8000'. You may need to add 'api.meiduo.site' to ALLOWED_HOSTS.
+WARNING 2018-12-27 22:21:04,996 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 400 70798
+ERROR 2018-12-27 22:23:32,829 exceptions 28 [<verifications.views.SMSCodeView object at 0x7f95ce4b3e48>] <class 'redis.exceptions.ConnectionError'>
+ERROR 2018-12-27 22:23:32,831 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 507 35
+ERROR 2018-12-27 22:24:50,477 exception 80 Invalid HTTP_HOST header: 'api.meiduo.site:8000'. You may need to add 'api.meiduo.site' to ALLOWED_HOSTS.
+WARNING 2018-12-27 22:24:50,698 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 400 70798
+ERROR 2018-12-28 14:17:36,743 exception 80 Invalid HTTP_HOST header: 'api.meiduo.site:8000'. You may need to add 'api.meiduo.site' to ALLOWED_HOSTS.
+WARNING 2018-12-28 14:17:37,107 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 400 71144
+ERROR 2018-12-28 14:21:01,358 exceptions 28 [<verifications.views.SMSCodeView object at 0x7f9f744e1eb8>] <class 'redis.exceptions.ConnectionError'>
+ERROR 2018-12-28 14:21:01,386 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 507 35
+ERROR 2018-12-28 14:21:23,027 exceptions 28 [<verifications.views.SMSCodeView object at 0x7f9f744e4c50>] <class 'redis.exceptions.ConnectionError'>
+ERROR 2018-12-28 14:21:23,029 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 507 35
+ERROR 2018-12-28 14:21:24,278 exceptions 28 [<verifications.views.SMSCodeView object at 0x7f9f744e1128>] <class 'redis.exceptions.ConnectionError'>
+ERROR 2018-12-28 14:21:24,279 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 507 35
+ERROR 2018-12-28 14:21:25,165 exceptions 28 [<verifications.views.SMSCodeView object at 0x7f9f744ee470>] <class 'redis.exceptions.ConnectionError'>
+ERROR 2018-12-28 14:21:25,200 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 507 35
+INFO 2018-12-28 14:21:40,987 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 200 16
+INFO 2018-12-28 14:23:00,764 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 200 16
+WARNING 2018-12-28 14:23:02,367 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 400 38
+ERROR 2018-12-28 14:23:24,972 exception 80 Invalid HTTP_HOST header: 'api.meiduo.site:8000'. You may need to add 'api.meiduo.site' to ALLOWED_HOSTS.
+WARNING 2018-12-28 14:23:25,213 basehttp 124 "GET /sms_codes/17775309063/ HTTP/1.1" 400 70853
