@@ -239,6 +239,7 @@ REST_FRAMEWORK = {
 JWT_AUTH = {
     # 设置JWT的有效时间
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'users.utils.jwt_response_payload_handler',
 }
 
 # 指定Django认证系统所使用的用户模型类
@@ -252,3 +253,6 @@ CORS_ORIGIN_WHITELIST = (
     'www.meiduo.site:8080',
 )
 CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
+
+# 指定Django 认证系统的后端类
+AUTHENTICATION_BACKENDS = ['users.utils.UsernameMobileAuthBackend']
