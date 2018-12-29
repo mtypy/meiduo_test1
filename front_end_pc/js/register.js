@@ -168,6 +168,45 @@ var vm = new Vue({
             this.check_sms_code();
             this.check_allow();
 
+            // 访问后端注册用户信息保存API
+            if(this.error_name == false && this.error_password == false && this.error_check_password == false
+                && this.error_phone == false && this.error_sms_code == false && this.error_allow == false) {
+                axios.post(this.host + '/users/', {
+                        username: this.username,
+                        password: this.password,
+                        password2: this.password2,
+                        mobile: this.mobile,
+                        sms_code: this.sms_code,
+                        allow: this.allow.toString()
+                    }, {
+                        responseType: 'json'
+                    })
+                    .then(response => {
+                        // 保存用户相关数据
+                        sessionStorage.clear();
+                        localStorage.clear();
+                        // 保存jwt token
+                        localStorage.token = response.data.token;
+                        // 保存用户名
+                        localStorage.username = response.data.username;
+                        // 保存用户id
+                        localStorage.user_id = response.data.id;
+                        // 页面跳转
+                        location.href = '/index.html';
+                    })
+                    .catch(error=> {
+                        if (error.response.status == 400) {
+                            if ('non_field_errors' in error.response.data) {
+                                this.error_sms_code_message = error.response.data.non_field_errors[0];
+                            } else {
+                                this.error_sms_code_message = '数据有误';
+                            }
+                            this.error_sms_code = true;
+                        } else {
+                            console.log(error.response.data);
+                        }
+                    })
+            }
         }
     }
 });

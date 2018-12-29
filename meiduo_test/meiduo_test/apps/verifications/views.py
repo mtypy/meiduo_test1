@@ -39,6 +39,7 @@ class SMSCodeView(APIView):
 
         # 1. 随机生成6位数字作为短信验证码
         sms_code = '%06d' % random.randint(0, 999999) # 000010
+        logger.info('短信验证码内容为: %s' % sms_code)
 
         # 2. 在redis中保存短信验证码的内容，以`mobile`为key，以`验证码内容`为value
         # redis_conn.set('<key>', '<value>', '<expries>')
@@ -61,8 +62,6 @@ class SMSCodeView(APIView):
         # # 发出发送短信的任务消息
         from celery_tasks.sms.tasks import send_sms_code
         send_sms_code.delay(mobile, sms_code, expires)
-
-
 
         # 4. 返回应答，发送成功
         return Response({'message': 'OK'})

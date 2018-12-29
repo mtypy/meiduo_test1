@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-
+import datetime
 import os
 import sys
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -228,6 +228,17 @@ LOGGING = {
 REST_FRAMEWORK = {
     # 设置DRF框架的异常处理函数
     'EXCEPTION_HANDLER': 'meiduo_test.utils.exceptions.exception_handler',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 引入JWT认证机制
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+JWT_AUTH = {
+    # 设置JWT的有效时间
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
 }
 
 # 指定Django认证系统所使用的用户模型类
