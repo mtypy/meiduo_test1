@@ -42,4 +42,3 @@ class UsernameMobileAuthBackend(ModelBackend):
         if user and user.check_password(password):
             # 账户密码正确
             return user
-        

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     "verifications.apps.VerificationsConfig",
     'corsheaders',
+    "oauth.apps.OauthConfig",
 ]
 
 MIDDLEWARE = [
@@ -256,3 +257,11 @@ CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
 
 # 指定Django 认证系统的后端类
 AUTHENTICATION_BACKENDS = ['users.utils.UsernameMobileAuthBackend']
+
+# QQ登录参数
+QQ_CLIENT_ID = '101474184'  # 审核通过的appid
+
+QQ_CLIENT_SECRET = 'c6ce949e04e12ecc909ae6a8b09b637c'  # 开发应用的app -key
+
+QQ_REDIRECT_URI = 'http://www.meiduo.site:8080/oauth_callback.html'  # 回调网址
+QQ_STATE = '/'  # 登陆之后跳转到的页面
