@@ -571,3 +571,6 @@ WARNING 2018-12-29 21:58:42,382 basehttp 124 "POST /authorizations/ HTTP/1.1" 40
 INFO 2018-12-29 21:59:10,041 basehttp 124 "POST /authorizations/ HTTP/1.1" 200 204
 INFO 2019-01-01 14:22:03,640 basehttp 124 "GET /mobiles/13155667788/count/ HTTP/1.1" 200 34
 INFO 2019-01-01 14:23:28,406 basehttp 124 "GET /mobiles/13155667788/count/ HTTP/1.1" 200 34
+WARNING 2019-01-01 15:00:23,570 base 152 Not Found: /oauth/qq/authorization/
+WARNING 2019-01-01 15:00:23,824 basehttp 124 "GET /oauth/qq/authorization/ HTTP/1.1" 404 2908
+INFO 2019-01-01 15:01:17,015 basehttp 124 "GET /oauth/qq/authorization/ HTTP/1.1" 200 220
