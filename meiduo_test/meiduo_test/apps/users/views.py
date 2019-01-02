@@ -1,22 +1,47 @@
-
-# Create your views here.
-# from drf_haystack import serializers
+from django.shortcuts import render
 from rest_framework import status
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import GenericAPIView, CreateAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin
+from rest_framework.permissions import IsAuthenticated
+
+from users import serializers
 from users.models import User
-
-from users.serializers import UserSerializer
-
-# 判断用户是否存在
-# url(r'^usernames/(?P<username>\w{5,20})/count/$', views.UsernameCountView.as_view()),
+from users.serializers import UserSerializer, UserDetailSerializer
 
 
-# 用户注册
-# 请求方式 POST /users/
-# 请求参数 表单 或 json
+# Create your views here.
 
+
+# GET /user/
+class UserDetailView(RetrieveAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.UserDetailSerializer
+
+    # get_queryset: 获取视图所使用的查询集
+    # get_object: 从查询集中查询指定的对象，默认根据主键来查
+
+    def get_object(self):
+        """返回登录用户"""
+        return self.request.user
+
+    # def get(self, request):
+    #     """
+    #     self.request: request对象
+    #     获取登录用户的个人信息:
+    #     1. 获取登录用户
+    #     2. 将登录用户序列化并返回
+    #     """
+    #     # 1. 获取登录用户
+    #     user = self.get_object()
+    #
+    #     # 2. 将登录用户序列化并返回
+    #     serializer = self.get_serializer(user)
+    #     return Response(serializer.data)
+
+
+# POST /users/
 class UserView(CreateAPIView):
     # 指定视图所使用的序列化器类
     serializer_class = UserSerializer
@@ -39,30 +64,26 @@ class UserView(CreateAPIView):
     #     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
+# url(r'^usernames/(?P<username>\w{5,20})/count/$', views.UsernameCountView.as_view()),
 class UsernameCountView(APIView):
     """
-       用户名数量
-       """
-
+    用户名数量
+    """
     def get(self, request, username):
         """
         获取指定用户名数量
-
         """
         count = User.objects.filter(username=username).count()
 
         data = {
-            "usename": username,
-            "count": count
-
+            'username': username,
+            'count': count
         }
+
         return Response(data)
 
 
-# 判断手机号是否存在
-# url(r'^mobiles/(?P<mobile>1[3-9]\d{9})/count/$', views.Mc55bileCountView.as_view()),
-
-
+# url(r'^mobiles/(?P<mobile>1[3-9]\d{9})/count/$', views.MobileCountView.as_view()),
 class MobileCountView(APIView):
     """
     手机号数量

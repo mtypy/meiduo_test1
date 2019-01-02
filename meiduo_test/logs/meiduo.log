@@ -625,3 +625,352 @@ INFO 2019-01-02 18:48:47,539 views 42 短信验证码内容为: 842748
 INFO 2019-01-02 18:48:47,794 basehttp 124 "GET /sms_codes/17612345678/ HTTP/1.1" 200 16
 INFO 2019-01-02 18:49:00,123 basehttp 124 "OPTIONS /oauth/qq/user/ HTTP/1.1" 200 0
 INFO 2019-01-02 18:49:00,374 basehttp 124 "POST /oauth/qq/user/ HTTP/1.1" 201 225
+INFO 2019-01-02 19:40:47,248 basehttp 124 "GET /oauth/qq/authorization/?next=/ HTTP/1.1" 200 195
+INFO 2019-01-02 19:41:03,767 basehttp 124 "GET /oauth/qq/user/?code=0F03DB057DE200A5139265A9B75D3432 HTTP/1.1" 200 230
+INFO 2019-01-02 19:41:06,729 basehttp 124 "OPTIONS /user/ HTTP/1.1" 200 0
+WARNING 2019-01-02 19:41:06,880 base 152 Not Found: /user/
+WARNING 2019-01-02 19:41:06,881 basehttp 124 "GET /user/ HTTP/1.1" 404 2961
+WARNING 2019-01-02 19:41:10,897 base 152 Not Found: /user/
+WARNING 2019-01-02 19:41:10,898 basehttp 124 "GET /user/ HTTP/1.1" 404 2961
+WARNING 2019-01-02 19:41:13,078 base 152 Not Found: /user/
+WARNING 2019-01-02 19:41:13,079 basehttp 124 "GET /user/ HTTP/1.1" 404 2961
+ERROR 2019-01-02 19:49:45,456 exception 135 Internal Server Error: /user/
+Traceback (most recent call last):
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 483, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 443, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 480, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/generics.py", line 210, in get
+    return self.retrieve(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/mixins.py", line 58, in retrieve
+    return Response(serializer.data)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 560, in data
+    ret = super(Serializer, self).data
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 262, in data
+    self._data = self.to_representation(self.instance)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 510, in to_representation
+    fields = self._readable_fields
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/utils/functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 376, in _readable_fields
+    field for field in self.fields.values()
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 1002, in get_fields
+    serializer_class=self.__class__.__name__
+AssertionError: Class UserDetailSerializer missing "Meta.model" attribute
+ERROR 2019-01-02 19:49:45,875 basehttp 124 "GET /user/ HTTP/1.1" 500 19977
+ERROR 2019-01-02 19:49:47,178 exception 135 Internal Server Error: /user/
+Traceback (most recent call last):
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 483, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 443, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 480, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/generics.py", line 210, in get
+    return self.retrieve(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/mixins.py", line 58, in retrieve
+    return Response(serializer.data)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 560, in data
+    ret = super(Serializer, self).data
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 262, in data
+    self._data = self.to_representation(self.instance)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 510, in to_representation
+    fields = self._readable_fields
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/utils/functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 376, in _readable_fields
+    field for field in self.fields.values()
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 1002, in get_fields
+    serializer_class=self.__class__.__name__
+AssertionError: Class UserDetailSerializer missing "Meta.model" attribute
+ERROR 2019-01-02 19:49:47,241 basehttp 124 "GET /user/ HTTP/1.1" 500 19977
+INFO 2019-01-02 19:49:53,599 basehttp 124 "GET /oauth/qq/authorization/?next=/ HTTP/1.1" 200 195
+INFO 2019-01-02 19:50:08,392 basehttp 124 "GET /oauth/qq/user/?code=B81973D7EC4DE97C0C2998453F8DCFD1 HTTP/1.1" 200 230
+INFO 2019-01-02 19:50:11,899 basehttp 124 "OPTIONS /user/ HTTP/1.1" 200 0
+ERROR 2019-01-02 19:50:11,976 exception 135 Internal Server Error: /user/
+Traceback (most recent call last):
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 483, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 443, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 480, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/generics.py", line 210, in get
+    return self.retrieve(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/mixins.py", line 58, in retrieve
+    return Response(serializer.data)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 560, in data
+    ret = super(Serializer, self).data
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 262, in data
+    self._data = self.to_representation(self.instance)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 510, in to_representation
+    fields = self._readable_fields
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/utils/functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 376, in _readable_fields
+    field for field in self.fields.values()
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 1002, in get_fields
+    serializer_class=self.__class__.__name__
+AssertionError: Class UserDetailSerializer missing "Meta.model" attribute
+ERROR 2019-01-02 19:50:12,061 basehttp 124 "GET /user/ HTTP/1.1" 500 19977
+INFO 2019-01-02 19:51:53,014 basehttp 124 "GET /oauth/qq/authorization/?next=/ HTTP/1.1" 200 195
+INFO 2019-01-02 19:51:58,740 basehttp 124 "GET /oauth/qq/user/?code=87014721E01D88302C47244E57E47054 HTTP/1.1" 200 230
+INFO 2019-01-02 19:52:08,895 basehttp 124 "OPTIONS /user/ HTTP/1.1" 200 0
+ERROR 2019-01-02 19:52:09,046 exception 135 Internal Server Error: /user/
+Traceback (most recent call last):
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 483, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 443, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 480, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/generics.py", line 210, in get
+    return self.retrieve(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/mixins.py", line 58, in retrieve
+    return Response(serializer.data)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 560, in data
+    ret = super(Serializer, self).data
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 262, in data
+    self._data = self.to_representation(self.instance)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 510, in to_representation
+    fields = self._readable_fields
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/utils/functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 376, in _readable_fields
+    field for field in self.fields.values()
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 1002, in get_fields
+    serializer_class=self.__class__.__name__
+AssertionError: Class UserDetailSerializer missing "Meta.model" attribute
+ERROR 2019-01-02 19:52:09,167 basehttp 124 "GET /user/ HTTP/1.1" 500 19977
+ERROR 2019-01-02 19:53:13,540 exception 135 Internal Server Error: /user/
+Traceback (most recent call last):
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 483, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 443, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 480, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/generics.py", line 210, in get
+    return self.retrieve(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/mixins.py", line 58, in retrieve
+    return Response(serializer.data)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 560, in data
+    ret = super(Serializer, self).data
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 262, in data
+    self._data = self.to_representation(self.instance)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 510, in to_representation
+    fields = self._readable_fields
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/utils/functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 376, in _readable_fields
+    field for field in self.fields.values()
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 1002, in get_fields
+    serializer_class=self.__class__.__name__
+AssertionError: Class UserDetailSerializer missing "Meta.model" attribute
+ERROR 2019-01-02 19:53:13,580 basehttp 124 "GET /user/ HTTP/1.1" 500 20068
+INFO 2019-01-02 19:53:23,984 basehttp 124 "GET /usernames/17612345678/count/ HTTP/1.1" 200 36
+INFO 2019-01-02 19:53:39,108 basehttp 124 "GET /mobiles/17612345678/count/ HTTP/1.1" 200 34
+INFO 2019-01-02 19:53:50,500 basehttp 124 "GET /mobiles/17612345678/count/ HTTP/1.1" 200 34
+INFO 2019-01-02 19:53:56,308 basehttp 124 "GET /usernames/python111/count/ HTTP/1.1" 200 34
+INFO 2019-01-02 19:54:12,576 basehttp 124 "GET /mobiles/17612341234/count/ HTTP/1.1" 200 34
+INFO 2019-01-02 19:54:13,711 basehttp 124 "GET /mobiles/17612341234/count/ HTTP/1.1" 200 34
+INFO 2019-01-02 19:54:13,849 views 42 短信验证码内容为: 445041
+INFO 2019-01-02 19:54:16,035 basehttp 124 "GET /sms_codes/17612341234/ HTTP/1.1" 200 16
+INFO 2019-01-02 19:54:28,573 basehttp 124 "OPTIONS /users/ HTTP/1.1" 200 0
+INFO 2019-01-02 19:54:28,735 basehttp 124 "GET /mobiles/17612341234/count/ HTTP/1.1" 200 34
+INFO 2019-01-02 19:54:28,753 basehttp 124 "GET /usernames/python111/count/ HTTP/1.1" 200 34
+INFO 2019-01-02 19:54:28,928 basehttp 124 "POST /users/ HTTP/1.1" 201 232
+ERROR 2019-01-02 19:54:36,161 exception 135 Internal Server Error: /user/
+Traceback (most recent call last):
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 483, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 443, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 480, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/generics.py", line 210, in get
+    return self.retrieve(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/mixins.py", line 58, in retrieve
+    return Response(serializer.data)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 560, in data
+    ret = super(Serializer, self).data
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 262, in data
+    self._data = self.to_representation(self.instance)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 510, in to_representation
+    fields = self._readable_fields
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/utils/functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 376, in _readable_fields
+    field for field in self.fields.values()
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 1002, in get_fields
+    serializer_class=self.__class__.__name__
+AssertionError: Class UserDetailSerializer missing "Meta.model" attribute
+ERROR 2019-01-02 19:54:36,246 basehttp 124 "GET /user/ HTTP/1.1" 500 20097
+ERROR 2019-01-02 19:57:17,580 exception 135 Internal Server Error: /user/
+Traceback (most recent call last):
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 483, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 443, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 480, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/generics.py", line 210, in get
+    return self.retrieve(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/mixins.py", line 58, in retrieve
+    return Response(serializer.data)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 560, in data
+    ret = super(Serializer, self).data
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 262, in data
+    self._data = self.to_representation(self.instance)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 510, in to_representation
+    fields = self._readable_fields
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/utils/functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 376, in _readable_fields
+    field for field in self.fields.values()
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 1002, in get_fields
+    serializer_class=self.__class__.__name__
+AssertionError: Class UserDetailSerializer missing "Meta.model" attribute
+ERROR 2019-01-02 19:57:17,620 basehttp 124 "GET /user/ HTTP/1.1" 500 20097
+INFO 2019-01-02 19:57:57,524 basehttp 124 "GET /usernames/17812341234/count/ HTTP/1.1" 200 36
+INFO 2019-01-02 19:58:12,596 basehttp 124 "GET /mobiles/17812341234/count/ HTTP/1.1" 200 34
+INFO 2019-01-02 19:58:12,649 views 42 短信验证码内容为: 916621
+INFO 2019-01-02 19:58:12,675 basehttp 124 "GET /mobiles/17812341234/count/ HTTP/1.1" 200 34
+INFO 2019-01-02 19:58:12,859 basehttp 124 "GET /sms_codes/17812341234/ HTTP/1.1" 200 16
+INFO 2019-01-02 19:58:29,812 basehttp 124 "GET /usernames/17812341234/count/ HTTP/1.1" 200 36
+INFO 2019-01-02 19:58:29,817 basehttp 124 "GET /mobiles/17812341234/count/ HTTP/1.1" 200 34
+INFO 2019-01-02 19:58:29,862 basehttp 124 "POST /users/ HTTP/1.1" 201 236
+ERROR 2019-01-02 19:58:32,723 exception 135 Internal Server Error: /user/
+Traceback (most recent call last):
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 483, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 443, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 480, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/generics.py", line 210, in get
+    return self.retrieve(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/mixins.py", line 58, in retrieve
+    return Response(serializer.data)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 560, in data
+    ret = super(Serializer, self).data
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 262, in data
+    self._data = self.to_representation(self.instance)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 510, in to_representation
+    fields = self._readable_fields
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/utils/functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 376, in _readable_fields
+    field for field in self.fields.values()
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/serializers.py", line 1002, in get_fields
+    serializer_class=self.__class__.__name__
+AssertionError: Class UserDetailSerializer missing "Meta.model" attribute
+ERROR 2019-01-02 19:58:32,808 basehttp 124 "GET /user/ HTTP/1.1" 500 20101
+INFO 2019-01-02 20:04:17,099 basehttp 124 "OPTIONS /user/ HTTP/1.1" 200 0
+INFO 2019-01-02 20:04:17,621 basehttp 124 "GET /user/ HTTP/1.1" 200 65
+INFO 2019-01-02 20:04:55,061 basehttp 124 "OPTIONS /authorizations/ HTTP/1.1" 200 0
+INFO 2019-01-02 20:04:55,182 basehttp 124 "POST /authorizations/ HTTP/1.1" 200 218
+INFO 2019-01-02 20:04:57,660 basehttp 124 "GET /user/ HTTP/1.1" 200 65
+INFO 2019-01-02 20:07:15,691 basehttp 124 "GET /user/ HTTP/1.1" 200 65
+INFO 2019-01-02 20:11:06,132 basehttp 124 "OPTIONS /user/ HTTP/1.1" 200 0
+INFO 2019-01-02 20:11:06,296 basehttp 124 "GET /user/ HTTP/1.1" 200 65
+INFO 2019-01-02 20:14:11,353 basehttp 124 "OPTIONS /user/ HTTP/1.1" 200 0
+INFO 2019-01-02 20:14:11,514 basehttp 124 "GET /user/ HTTP/1.1" 200 88
