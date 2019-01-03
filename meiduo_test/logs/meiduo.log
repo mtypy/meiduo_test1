@@ -1090,3 +1090,45 @@ INFO 2019-01-03 19:38:44,918 basehttp 124 "OPTIONS /emails/verification/?token=e
 INFO 2019-01-03 19:41:24,956 basehttp 124 "GET /user/ HTTP/1.1" 200 110
 INFO 2019-01-03 19:41:29,294 basehttp 124 "PUT /email/ HTTP/1.1" 200 41
 INFO 2019-01-03 19:41:49,075 basehttp 124 "OPTIONS /emails/verification/?token=eyJleHAiOjE1NDY1MjI4ODYsImlhdCI6MTU0NjUxNTY4NiwiYWxnIjoiSFMyNTYifQ.eyJpZCI6NSwiZW1haWwiOiJzc18yMnp4bTk2ODcxMkAxNjMuY29tIn0.2f51wSV5NcqEOHiGESa8FIQS136tpUNYwtihTAkNpvg HTTP/1.1" 200 0
+WARNING 2019-01-03 22:25:00,759 basehttp 124 "PUT /areas/ HTTP/1.1" 405 45
+ERROR 2019-01-03 22:25:06,488 exception 135 Internal Server Error: /areas/
+Traceback (most recent call last):
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 485, in dispatch
+    self.response = self.finalize_response(request, response, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 400, in finalize_response
+    % type(response)
+AssertionError: Expected a `Response`, `HttpResponse` or `HttpStreamingResponse` to be returned from the view, but received a `<class 'NoneType'>`
+ERROR 2019-01-03 22:25:07,776 basehttp 124 "GET /areas/ HTTP/1.1" 500 88401
+ERROR 2019-01-03 22:30:29,387 exception 135 Internal Server Error: /areas/
+Traceback (most recent call last):
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 483, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 443, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/python/.virtualenvs/django_py3_11/lib/python3.5/site-packages/rest_framework/views.py", line 480, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/python/Desktop/meiduo_test1/meiduo_test/meiduo_test/apps/areas/views.py", line 25, in get
+    serializer = self.get_serializer(areas, many=True)
+AttributeError: 'AreasView' object has no attribute 'get_serializer'
+ERROR 2019-01-03 22:30:29,597 basehttp 124 "GET /areas/ HTTP/1.1" 500 18584
+INFO 2019-01-03 22:32:23,487 basehttp 124 "GET /areas/ HTTP/1.1" 200 1204
