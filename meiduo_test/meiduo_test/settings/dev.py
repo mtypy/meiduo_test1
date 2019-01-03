@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import datetime
 import os
 import sys
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # 项目内层`meiduo_mall`目录
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +32,6 @@ SECRET_KEY = '5=lksd2yqj&1sa5%ikn8qx_z!%aw()p74o0hy%(^^&*v$gq*-f'
 DEBUG = True
 
 ALLOWED_HOSTS = ['api.meiduo.site', '127.0.0.1', 'localhost']
-
 
 # Application definition
 
@@ -81,7 +81,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'meiduo_test.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
@@ -95,7 +94,6 @@ DATABASES = {
         'NAME': 'meiduo_test'  # 数据库名字
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -115,7 +113,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -128,7 +125,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -173,7 +169,6 @@ CACHES = {
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 # 指定session存储到缓存中哪个空间中
 SESSION_CACHE_ALIAS = "session"
-
 
 # Django框架日志存储设置
 LOGGING = {
@@ -265,3 +260,15 @@ QQ_CLIENT_SECRET = 'c6ce949e04e12ecc909ae6a8b09b637c'  # 开发应用的app -key
 
 QQ_REDIRECT_URI = 'http://www.meiduo.site:8080/oauth_callback.html'  # 回调网址
 QQ_STATE = '/'  # 登陆之后跳转到的页面
+
+
+# 邮箱配置
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 25
+# 发送邮件的邮箱
+EMAIL_HOST_USER = 'ss_22zxm968712@163.com'
+# 在邮箱中设置的客户端授权密码
+EMAIL_HOST_PASSWORD = 'ming7642537'
+# 收件人看到的发件人
+EMAIL_FROM = 'python<ss_22zxm968712@163.com>'
