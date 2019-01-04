@@ -1,2 +1,5 @@
 # 邮箱验证链接有效时间: s
 VERIFY_EMAIL_TOKEN_EXPIRES = 7200
+
+# 用户地址数量上限
+USER_ADDRESS_COUNTS_LIMIT = 20

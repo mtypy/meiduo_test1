@@ -1,17 +1,145 @@
 from django.shortcuts import render
-from rest_framework import status
+from rest_framework import status, request
+from rest_framework.decorators import action
 from rest_framework.generics import GenericAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import GenericViewSet
 
-from users import serializers
-from users.models import User
-from users.serializers import UserSerializer, UserDetailSerializer, EmailSerializer
+from users import serializers, constants
+from users.models import User, Address
+from users.serializers import UserSerializer, UserDetailSerializer, EmailSerializer, AddressSerializer, \
+    AddressTitleSerializer
 
 
 # Create your views here.
+# 新增地址的数据
+
+class AddressViewSet(CreateModelMixin,GenericViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = AddressSerializer
+
+    def get_queryset(self):
+        """返回用户的地址查询集"""
+        return self.request.user.addresses.filter(is_deleted=False)
+
+    # POST /addresses
+    def create(self, request):
+        """
+        request.user: 获取登录用户
+        保存新增地址的数据：
+        1. 接收参数并进行校验(参数完整性，手机号格式)
+        2. 创建并保存新增地址数据
+        3. 返回应答，地址创建成功
+        """
+        # 用户地址数据是否超过上限
+        count = request.user.addresses.filter(is_deleted=False).count()
+
+        if count > constants.USER_ADDRESS_COUNTS_LIMIT:
+            return Response({'message': '保存地址数据已达到上限'}, status=status.HTTP_400_BAD_REQUEST)
+        # 调用`CreateModelMixin`扩展类中create方法
+        return super() .create(request)
+# GET /addresses/
+
+    def list(self, request):
+        """
+        1. 获取登录用户的所有地址数据
+        2. 将用户的地址数据序列并返回
+        """
+        user = request.user
+        # 1. 获取登录用户的所有地址数据
+        addresses = self.get_queryset()
+
+        # 2. 将用户的地址数据序列并返回
+        serializer = self.get_serializer(addresses, many=True)
+
+        return Response({
+            'user_id': user.id, # 用户id
+            'default_address_id': user.default_address_id, # 默认地址id
+            'limit': constants.USER_ADDRESS_COUNTS_LIMIT, # 地址数量上限
+            'addresses': serializer.data, # 地址数据
+        })
+
+    # PUT /addresses/(?P<pk>\d+)/
+    # def update(self, request, pk):
+    #     """
+    #     1. 根据pk获取对应的地址数据
+    #     2. 获取参数并进行校验
+    #     3. 保存修改地址的数据
+    #     4. 返回应答，修改成功
+    #     """
+    #     # 1. 根据pk获取对应的地址数据
+    #     address = self.get_object()
+    #     # 2. 获取参数并进行校验
+    #     serializer = self.get_serializer(address, data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #
+    #     # 3. 保存修改地址的数据(update)
+    #     serializer.save()
+    #
+    #     # 4. 返回应答，修改成功
+    #     return Response(serializer.data)
+
+    # DELETE /addresses/(?P<pk>\d+)/
+    def destroy(self, request, pk):
+        """
+        1. 根据pk获取对应的地址数据
+        2. 将地址删除
+        3. 返回应答
+        """
+        # 1. 根据pk获取对应的地址数据
+        address = self.get_object()
+
+        # 2. 将地址删除
+        address.is_deleted = True
+        address.save()
+
+        # 3. 返回应答
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    # 设为默认地址
+    # PUT /addresses / (?P<pk>\d+)/status/
+    @action(methods=["put"], detail=True)
+    def status(self, request, pk):
+        """
+              1. 根据pk获取对应的地址数据
+              2. 将此地址设置为用户的默认地址
+              3. 返回应答
+              """
+
+    # 1. 根据pk获取对应的地址数据
+        address = self.get_object()
+
+    # 2. 将此地址设置为用户的默认地址
+        request.user.default_address_id = address.id
+
+    # 3.返回应答
+        return Response({"message": "ok"}, status=status.HTTP_200_OK)
+
+    # 设置地址标题
+    # PUT /address/(?P<pk>\d+)/title/
+    @action(methods=['put'], detail=True)
+    def title(self, request, pk):
+        """
+        1. 根据pk获取对应的地址数据
+        2. 获取title并进行校验
+        3. 设置地址标题
+        4. 返回应答
+        """
+        # 1. 根据pk获取对应的地址数据
+        address = self.get_object()
+
+        # 2. 获取title并进行校验
+        serializer = AddressTitleSerializer(address, data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # 3. 设置地址标题(update)
+        serializer.save()
+
+        # 4. 返回应答
+        return Response(serializer.data)
 
 # PUT /emails/verification/?token=<加密用户的信息>
 class EmailVerifyView(APIView):
@@ -190,5 +318,7 @@ class MobileCountView(APIView):
         }
 
         return Response(data)
+
+
 
 

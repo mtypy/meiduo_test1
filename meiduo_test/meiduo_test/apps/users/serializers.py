@@ -3,7 +3,7 @@ import re
 from django_redis import get_redis_connection
 from rest_framework import serializers
 
-from users.models import User
+from users.models import User, Address
 
 
 # User.objects.create()
@@ -77,13 +77,13 @@ class UserSerializer(serializers.ModelSerializer):
         # 从redis中获取真实的短信验证码
         redis_conn = get_redis_connection('verify_codes')
 
-        real_sms_code = redis_conn.get('sms_%s' % mobile) # bytes
+        real_sms_code = redis_conn.get('sms_%s' % mobile)  # bytes
 
         if not real_sms_code:
             raise serializers.ValidationError('短信验证码已失效')
 
         # 对比短信验证码
-        sms_code = attrs['sms_code'] # str
+        sms_code = attrs['sms_code']  # str
 
         if real_sms_code.decode() != sms_code:
             raise serializers.ValidationError('短信验证码错误')
@@ -134,6 +134,7 @@ class EmailSerializer(serializers.ModelSerializer):
     """
     邮箱序列化器类
     """
+
     class Meta:
         model = User
         fields = ("id", "email")
@@ -163,6 +164,39 @@ class EmailSerializer(serializers.ModelSerializer):
         return instance
 
 
+class AddressSerializer(serializers.ModelSerializer):
+    """地址序列化器类"""
+    province_id = serializers.IntegerField(label='省id')
+    city_id = serializers.IntegerField(label='市id')
+    district_id = serializers.IntegerField(label='区县id')
+    province = serializers.StringRelatedField(label='省名称', read_only=True)
+    city = serializers.StringRelatedField(label='市名称', read_only=True)
+    district = serializers.StringRelatedField(label='区县名称', read_only=True)
+
+    class Meta:
+        model = Address
+        exclude = ('user', 'is_deleted', 'create_time', 'update_time')
+
+    # 校验手机号
+    def validate_mobile(self, value):
+        # 手机号格式
+        if not re.match(r'^1[3-9]\d{9}$', value):
+            raise serializers.ValidationError('手机号格式不正确')
+
+        return value
+
+    # 创建并保存新增数据
+    def create(self, validated_data):
+        # 创建并保存新增数据
+        user = self.context["request"].user
+        validated_data["user"] = user
+
+        # 调用`ModelSerializer`中的create方法完整地址创建
+        return super().create(validated_data)
 
 
-
+class AddressTitleSerializer(serializers.ModelSerializer):
+    """地址标题"""
+    class Meta:
+        model = Address
+        fields = ("title",)

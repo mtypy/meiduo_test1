@@ -14,3 +14,9 @@ urlpatterns = [
 
 
 ]
+
+# 路由Router
+from rest_framework.routers import DefaultRouter
+router = DefaultRouter()
+router.register('addresses', views.AddressViewSet, base_name='addresses')
+urlpatterns += router.urls
