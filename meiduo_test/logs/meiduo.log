@@ -1132,3 +1132,17 @@ Traceback (most recent call last):
 AttributeError: 'AreasView' object has no attribute 'get_serializer'
 ERROR 2019-01-03 22:30:29,597 basehttp 124 "GET /areas/ HTTP/1.1" 500 18584
 INFO 2019-01-03 22:32:23,487 basehttp 124 "GET /areas/ HTTP/1.1" 200 1204
+INFO 2019-01-04 09:53:11,235 basehttp 124 "GET /areas/ HTTP/1.1" 200 1204
+INFO 2019-01-04 09:53:32,757 basehttp 124 "GET /areas/?130000/ HTTP/1.1" 200 1204
+INFO 2019-01-04 09:54:14,937 basehttp 124 "GET /areas/360000/ HTTP/1.1" 200 407
+INFO 2019-01-04 10:11:55,734 basehttp 124 "OPTIONS /authorizations/ HTTP/1.1" 200 0
+WARNING 2019-01-04 10:11:55,975 basehttp 124 "POST /authorizations/ HTTP/1.1" 400 67
+INFO 2019-01-04 10:12:03,511 basehttp 124 "POST /authorizations/ HTTP/1.1" 200 248
+INFO 2019-01-04 10:12:17,111 basehttp 124 "OPTIONS /user/ HTTP/1.1" 200 0
+INFO 2019-01-04 10:12:17,281 basehttp 124 "GET /user/ HTTP/1.1" 200 110
+INFO 2019-01-04 10:12:21,810 basehttp 124 "GET /areas/ HTTP/1.1" 200 1204
+INFO 2019-01-04 10:12:26,818 basehttp 124 "GET /areas/120000/ HTTP/1.1" 200 74
+INFO 2019-01-04 10:12:29,228 basehttp 124 "GET /areas/120100/ HTTP/1.1" 200 572
+INFO 2019-01-04 10:12:33,250 basehttp 124 "GET /areas/130000/ HTTP/1.1" 200 464
+INFO 2019-01-04 10:12:35,242 basehttp 124 "GET /areas/130400/ HTTP/1.1" 200 659
+INFO 2019-01-04 10:12:59,429 basehttp 124 "GET /areas/130300/ HTTP/1.1" 200 293

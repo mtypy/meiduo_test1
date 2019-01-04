@@ -273,3 +273,12 @@ EMAIL_HOST_USER = 'ss_22zxm968712@163.com'
 EMAIL_HOST_PASSWORD = 'ming7642537'
 # 收件人看到的发件人
 EMAIL_FROM = 'python<ss_22zxm968712@163.com>'
+
+
+# DRF缓存扩展设置
+REST_FRAMEWORK_EXTENSIONS = {
+    # 缓存时间
+    'DEFAULT_CACHE_RESPONSE_TIMEOUT': 60 * 60,
+    # 缓存存储
+    'DEFAULT_USE_CACHE': 'default',
+}
