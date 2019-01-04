@@ -1,20 +1,26 @@
-from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.conf import settings
+
 from itsdangerous import TimedJSONWebSignatureSerializer as TJWSSerializer
 from itsdangerous import BadData
-# Create your models here.
 
-
-# 用户模型类
 from meiduo_test.utils.models import BaseModel
 from users import constants
+# Create your models here.
+
+# 1. 获取id为2的用户
+# user = User.objects.get(id=2)
+
+# 获取user的默认地址
+# user.default_address
 
 
 class User(AbstractUser):
     """用户模型类"""
     mobile = models.CharField(max_length=11, verbose_name='手机号')
-    email_active = models.BooleanField(default=False, verbose_name="邮箱验证状态")
+    email_active = models.BooleanField(default=False, verbose_name='邮箱验证状态')
+    # openid = models.CharField(max_length=64, verbose_name='OpenID')
     default_address = models.ForeignKey('Address', related_name='users', null=True, blank=True,
                                         on_delete=models.SET_NULL, verbose_name='默认地址')
 
@@ -27,8 +33,8 @@ class User(AbstractUser):
         """生成用户的邮箱验证链接地址"""
         # 组织数据
         data = {
-            "id": self.id,
-            "email": self.email
+            'id': self.id,
+            'email': self.email
         }
 
         # 进行加密
@@ -39,7 +45,6 @@ class User(AbstractUser):
         verify_url = 'http://www.meiduo.site:8080/success_verify_email.html?token=' + token
         return verify_url
 
-
     @staticmethod
     def check_verify_email_token(token):
         """
@@ -49,19 +54,18 @@ class User(AbstractUser):
         serializer = TJWSSerializer(secret_key=settings.SECRET_KEY)
 
         try:
-            data = serializer.load(token)
+            data = serializer.loads(token)
         except BadData:
             # 解密失败
             return None
         else:
             # 解密成功
-            id = data.get("id")
-            email = data.get("email")
+            id = data.get('id')
+            email = data.get('email')
 
             # 查询用户
             try:
                 user = User.objects.get(id=id, email=email)
-
             except User.DoesNotExist:
                 return None
             else:
@@ -87,6 +91,8 @@ class User(AbstractUser):
 
 # 获取和user关联地址
 # user.addresses.all()
+
+
 # Address.objects.create(
 #     # ...
 #     province='地区对象',

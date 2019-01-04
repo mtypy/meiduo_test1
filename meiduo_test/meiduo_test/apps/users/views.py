@@ -141,20 +141,47 @@ class AddressViewSet(CreateModelMixin,GenericViewSet):
         # 4. 返回应答
         return Response(serializer.data)
 
+
 # PUT /emails/verification/?token=<加密用户的信息>
+# class EmailVerifyView(APIView):
+#     def put(self, request):
+#         """
+#         用户邮箱验证：
+#         1.获取token(加密用户的信息)并进行校验（token必传，token是否有效）
+#         2. 设置用户的邮箱验证标记True
+#         3. 返回应答，邮箱验证成功
+#         """
+#         # 1.获取token(加密用户的信息)并进行校验（token必传，token是否有效）
+#         token = request.query_param.get("token")
+#
+#         if token is None:
+#             return Response({"message": "缺少token参数"}, status=status.HTTP_400_BAD_REQUEST)
+#
+#         # token是否有效
+#         user = User.check_verify_email_token(token)
+#
+#         if user is None:
+#             return Response({'message': '无效的token数据'}, status=status.HTTP_400_BAD_REQUEST)
+#
+#         # 2. 设置用户的邮箱验证标记True
+#         user.email_active = True
+#         user.save()
+#
+#         # 3. 返回应答，邮箱验证成功
+#         return Response({"message": "ok"})
 class EmailVerifyView(APIView):
     def put(self, request):
         """
-        用户邮箱验证：
-        1.获取token(加密用户的信息)并进行校验（token必传，token是否有效）
+        用户邮箱验证:
+        1. 获取token(加密用户的信息)并进行校验(token必传，token是否有效)
         2. 设置用户的邮箱验证标记True
         3. 返回应答，邮箱验证成功
         """
-        # 1.获取token(加密用户的信息)并进行校验（token必传，token是否有效）
-        token = request.query_param.get("token")
+        # 1. 获取token(加密用户的信息)并进行校验(token必传，token是否有效)
+        token = request.query_params.get('token')
 
         if token is None:
-            return Response({"message":"缺少token参数"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': '缺少token参数'}, status=status.HTTP_400_BAD_REQUEST)
 
         # token是否有效
         user = User.check_verify_email_token(token)
@@ -167,16 +194,47 @@ class EmailVerifyView(APIView):
         user.save()
 
         # 3. 返回应答，邮箱验证成功
-        return Response({"message": "ok"})
+        return Response({'message': 'OK'})
 
 
 # 保存用户邮箱 PUT
+# class EmailView(UpdateAPIView):
+#     """保存用户邮箱"""
+#     permission_classes = [IsAuthenticated]
+#     serializer_class = EmailSerializer
+#
+#     def get_object(self):
+#         return self.request.user
+#
+#     # def put(self, request):
+#     #     """
+#     #     保存登录用户的邮箱:
+#     #     1. 获取参数并进行校验(email必传，邮箱格式)
+#     #     2. 设置登录用户的邮箱并给邮箱发送验证邮件
+#     #     3. 返回应答，邮箱设置成功
+#     #     """
+#     #     # 获取登录用户
+#     #     user = self.get_object()
+#     #
+#     #     # 1. 获取参数并进行校验(email必传，邮箱格式)
+#     #     serializer = self.get_serializer(user, data=request.data)
+#     #     serializer.is_valid(raise_exception=True)
+#     #
+#     #     # 2. 设置登录用户的邮箱并给邮箱发送验证邮件(update)
+#     #     serializer.save()
+#     #
+#     #     # 3. 返回应答，邮箱设置成功
+#     #     return Response(serializer.data)
+
+
+# GET /user/
+
 class EmailView(UpdateAPIView):
-    """保存用户邮箱"""
     permission_classes = [IsAuthenticated]
     serializer_class = EmailSerializer
 
     def get_object(self):
+        """返回登录用户"""
         return self.request.user
 
     # def put(self, request):
@@ -200,7 +258,6 @@ class EmailView(UpdateAPIView):
     #     return Response(serializer.data)
 
 
-# GET /user/
 class UserDetailView(RetrieveAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = serializers.UserDetailSerializer
