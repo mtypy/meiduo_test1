@@ -23,6 +23,7 @@ class Content(BaseModel):
     """
     广告内容
     """
+
     category = models.ForeignKey(ContentCategory, on_delete=models.PROTECT, verbose_name='类别')
     title = models.CharField(max_length=100, verbose_name='标题')
     url = models.CharField(max_length=300, verbose_name='内容链接')

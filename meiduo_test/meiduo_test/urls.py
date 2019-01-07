@@ -22,5 +22,6 @@ urlpatterns = [
     url('^', include("users.urls")),
     url('^oauth/', include("oauth.urls")),
     url(r'^', include('areas.urls')),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 
 ]
