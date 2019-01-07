@@ -1,23 +1,46 @@
 from django.shortcuts import render
-from rest_framework import status, request
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.generics import GenericAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin
+from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet
 
-from users import serializers, constants
-from users.models import User, Address
-from users.serializers import UserSerializer, UserDetailSerializer, EmailSerializer, AddressSerializer, \
-    AddressTitleSerializer
+from users import constants
+from users.serializers import EmailSerializer, AddressSerializer, AddressTitleSerializer, HistorySerializer
+from users.models import User
+from users.serializers import UserSerializer, UserDetailSerializer
 
 
 # Create your views here.
-# 新增地址的数据
 
-class AddressViewSet(CreateModelMixin,GenericViewSet):
+# POST /browse_histories/
+class HistoryView(CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = HistorySerializer
+
+    # def post(self, request):
+    #     """
+    #     浏览记录保存:
+    #     1. 获取sku_id并进行校验(sku_id必传，sku_id对应的商品是否存在)
+    #     2. 在redis中保存登录用户的浏览记录
+    #     3. 返回应答，浏览记录保存成功
+    #     """
+    #     # 1. 获取sku_id并进行校验(sku_id必传，sku_id对应的商品是否存在)
+    #     serializer = self.get_serializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #
+    #     # 2. 在redis中保存登录用户的浏览记录(create)
+    #     serializer.save()
+    #
+    #     # 3. 返回应答，浏览记录保存成功
+    #     return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class AddressViewSet(CreateModelMixin, UpdateModelMixin, GenericViewSet):
+    """地址视图集"""
     permission_classes = [IsAuthenticated]
     serializer_class = AddressSerializer
 
@@ -25,7 +48,7 @@ class AddressViewSet(CreateModelMixin,GenericViewSet):
         """返回用户的地址查询集"""
         return self.request.user.addresses.filter(is_deleted=False)
 
-    # POST /addresses
+    # POST /addresses/
     def create(self, request):
         """
         request.user: 获取登录用户
@@ -34,15 +57,16 @@ class AddressViewSet(CreateModelMixin,GenericViewSet):
         2. 创建并保存新增地址数据
         3. 返回应答，地址创建成功
         """
-        # 用户地址数据是否超过上限
+        # 用户地址数量是否超过上限
         count = request.user.addresses.filter(is_deleted=False).count()
 
         if count > constants.USER_ADDRESS_COUNTS_LIMIT:
             return Response({'message': '保存地址数据已达到上限'}, status=status.HTTP_400_BAD_REQUEST)
-        # 调用`CreateModelMixin`扩展类中create方法
-        return super() .create(request)
-# GET /addresses/
 
+        # 调用`CreateModelMixin`扩展类中create方法
+        return super().create(request)
+
+    # GET /addresses/
     def list(self, request):
         """
         1. 获取登录用户的所有地址数据
@@ -100,23 +124,24 @@ class AddressViewSet(CreateModelMixin,GenericViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     # 设为默认地址
-    # PUT /addresses / (?P<pk>\d+)/status/
-    @action(methods=["put"], detail=True)
+    # PUT /addresses/(?P<pk>\d+)/status/
+    @action(methods=['put'], detail=True)
     def status(self, request, pk):
         """
-              1. 根据pk获取对应的地址数据
-              2. 将此地址设置为用户的默认地址
-              3. 返回应答
-              """
-
-    # 1. 根据pk获取对应的地址数据
+        1. 根据pk获取对应的地址数据
+        2. 将此地址设置为用户的默认地址
+        3. 返回应答
+        """
+        # 1. 根据pk获取对应的地址数据
         address = self.get_object()
 
-    # 2. 将此地址设置为用户的默认地址
+        # 2. 将此地址设置为用户的默认地址
+        # request.user.default_address = address
         request.user.default_address_id = address.id
+        request.user.save()
 
-    # 3.返回应答
-        return Response({"message": "ok"}, status=status.HTTP_200_OK)
+        # 3. 返回应答
+        return Response({'message': 'OK'}, status=status.HTTP_200_OK)
 
     # 设置地址标题
     # PUT /address/(?P<pk>\d+)/title/
@@ -143,32 +168,6 @@ class AddressViewSet(CreateModelMixin,GenericViewSet):
 
 
 # PUT /emails/verification/?token=<加密用户的信息>
-# class EmailVerifyView(APIView):
-#     def put(self, request):
-#         """
-#         用户邮箱验证：
-#         1.获取token(加密用户的信息)并进行校验（token必传，token是否有效）
-#         2. 设置用户的邮箱验证标记True
-#         3. 返回应答，邮箱验证成功
-#         """
-#         # 1.获取token(加密用户的信息)并进行校验（token必传，token是否有效）
-#         token = request.query_param.get("token")
-#
-#         if token is None:
-#             return Response({"message": "缺少token参数"}, status=status.HTTP_400_BAD_REQUEST)
-#
-#         # token是否有效
-#         user = User.check_verify_email_token(token)
-#
-#         if user is None:
-#             return Response({'message': '无效的token数据'}, status=status.HTTP_400_BAD_REQUEST)
-#
-#         # 2. 设置用户的邮箱验证标记True
-#         user.email_active = True
-#         user.save()
-#
-#         # 3. 返回应答，邮箱验证成功
-#         return Response({"message": "ok"})
 class EmailVerifyView(APIView):
     def put(self, request):
         """
@@ -197,38 +196,7 @@ class EmailVerifyView(APIView):
         return Response({'message': 'OK'})
 
 
-# 保存用户邮箱 PUT
-# class EmailView(UpdateAPIView):
-#     """保存用户邮箱"""
-#     permission_classes = [IsAuthenticated]
-#     serializer_class = EmailSerializer
-#
-#     def get_object(self):
-#         return self.request.user
-#
-#     # def put(self, request):
-#     #     """
-#     #     保存登录用户的邮箱:
-#     #     1. 获取参数并进行校验(email必传，邮箱格式)
-#     #     2. 设置登录用户的邮箱并给邮箱发送验证邮件
-#     #     3. 返回应答，邮箱设置成功
-#     #     """
-#     #     # 获取登录用户
-#     #     user = self.get_object()
-#     #
-#     #     # 1. 获取参数并进行校验(email必传，邮箱格式)
-#     #     serializer = self.get_serializer(user, data=request.data)
-#     #     serializer.is_valid(raise_exception=True)
-#     #
-#     #     # 2. 设置登录用户的邮箱并给邮箱发送验证邮件(update)
-#     #     serializer.save()
-#     #
-#     #     # 3. 返回应答，邮箱设置成功
-#     #     return Response(serializer.data)
-
-
-# GET /user/
-
+# PUT /email/
 class EmailView(UpdateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = EmailSerializer
@@ -258,39 +226,10 @@ class EmailView(UpdateAPIView):
     #     return Response(serializer.data)
 
 
+# GET /user/
 class UserDetailView(RetrieveAPIView):
     permission_classes = [IsAuthenticated]
-    serializer_class = serializers.UserDetailSerializer
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    serializer_class = UserDetailSerializer
 
     # get_queryset: 获取视图所使用的查询集
     # get_object: 从查询集中查询指定的对象，默认根据主键来查
@@ -342,7 +281,6 @@ class UsernameCountView(APIView):
     """
     用户名数量
     """
-
     def get(self, request, username):
         """
         获取指定用户名数量
@@ -375,7 +313,3 @@ class MobileCountView(APIView):
         }
 
         return Response(data)
-
-
-
-
