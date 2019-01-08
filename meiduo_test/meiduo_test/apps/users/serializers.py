@@ -3,6 +3,8 @@ import re
 from django_redis import get_redis_connection
 from rest_framework import serializers
 
+from goods.models import SKU
+from users import constants
 from users.models import User, Address
 
 
@@ -77,13 +79,13 @@ class UserSerializer(serializers.ModelSerializer):
         # 从redis中获取真实的短信验证码
         redis_conn = get_redis_connection('verify_codes')
 
-        real_sms_code = redis_conn.get('sms_%s' % mobile)  # bytes
+        real_sms_code = redis_conn.get('sms_%s' % mobile) # bytes
 
         if not real_sms_code:
             raise serializers.ValidationError('短信验证码已失效')
 
         # 对比短信验证码
-        sms_code = attrs['sms_code']  # str
+        sms_code = attrs['sms_code'] # str
 
         if real_sms_code.decode() != sms_code:
             raise serializers.ValidationError('短信验证码错误')
@@ -120,46 +122,38 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
-    """
-    用户详细信息序列化器
-    """
-
+    """用户的序列化器类"""
     class Meta:
         model = User
-        # fields = ("id", "username", "email", "email_active")
         fields = ('id', 'username', 'mobile', 'email', 'email_active')
 
 
 class EmailSerializer(serializers.ModelSerializer):
-    """
-    邮箱序列化器类
-    """
-
+    """邮箱序列化器类"""
     class Meta:
         model = User
-        fields = ("id", "email")
+        fields = ('id', 'email')
 
         extra_kwargs = {
-            "email": {
-                "required": True
+            'email': {
+                'required': True
             }
         }
 
     def update(self, instance, validated_data):
         # 设置登录用户的邮箱
-        email = validated_data["email"]
+        email = validated_data['email']
         instance.email = email
         instance.save()
 
-        # TODO:并给邮箱发送验证邮件
-
-        # 验证链接地址http://api.meiduo.site:8080/success_verify_email.html?token=<加密用户信息>
-        verfiy_url = instance.generate_verify_email_url()
+        # TODO: 并给邮箱发送验证邮件
+        # 验证链接地址: http://www.meiduo.site:8080/success_verify_email.html?token=<加密用户信息>
+        verify_url = instance.generate_verify_email_url()
 
         # 发出发送邮件的任务消息
         # send_mail()
         from celery_tasks.email.tasks import send_verify_email
-        send_verify_email.delay(email, verfiy_url)
+        send_verify_email.delay(email, verify_url)
 
         return instance
 
@@ -177,26 +171,70 @@ class AddressSerializer(serializers.ModelSerializer):
         model = Address
         exclude = ('user', 'is_deleted', 'create_time', 'update_time')
 
-    # 校验手机号
-    def validate_mobile(self, value):
+    def valdate_mobile(self, value):
         # 手机号格式
         if not re.match(r'^1[3-9]\d{9}$', value):
             raise serializers.ValidationError('手机号格式不正确')
 
         return value
 
-    # 创建并保存新增数据
     def create(self, validated_data):
-        # 创建并保存新增数据
-        user = self.context["request"].user
-        validated_data["user"] = user
+        # 创建并保存新增地址数据
+        user = self.context['request'].user
+        validated_data['user'] = user
 
         # 调用`ModelSerializer`中的create方法完整地址创建
         return super().create(validated_data)
 
 
 class AddressTitleSerializer(serializers.ModelSerializer):
-    """地址标题"""
+    """
+    地址标题
+    """
     class Meta:
         model = Address
-        fields = ("title",)
+        fields = ('title',)
+
+
+class HistorySerializer(serializers.Serializer):
+    """浏览记录序列化器类"""
+    sku_id = serializers.IntegerField(label='商品id', min_value=1)
+
+    def validate_sku_id(self, value):
+        # sku_id对应的商品是否存在
+        try:
+            SKU.objects.get(id=value)
+        except SKU.DoesNotExist:
+            raise serializers.ValidationError('商品不存在')
+
+        return value
+
+    def create(self, validated_data):
+        """在redis中保存登录用户的浏览记录"""
+        # 获取redis链接
+        redis_conn = get_redis_connection('histories')
+
+        # 获取登录用户
+        user = self.context['request'].user
+
+        history_key = 'history_%s' % user.id
+
+        sku_id = validated_data['sku_id']
+        # 1. 去重：如果用户已经浏览过该商品，将商品的id从redis列表中移除
+        redis_conn.lrem(history_key, 0, sku_id)
+
+        # 2. 保持有序：将用户最新浏览的商品id添加到列表的最左侧
+        redis_conn.lpush(history_key, sku_id)
+
+        # 3. 截取：只保留用户最新浏览的几个商品的id
+        redis_conn.ltrim(history_key, 0, constants.USER_BROWSING_HISTORY_COUNTS_LIMIT - 1)
+
+        return validated_data
+
+
+
+
+
+
+
+
