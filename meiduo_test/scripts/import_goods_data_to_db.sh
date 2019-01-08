@@ -1,3 +1,3 @@
 #! /bin/bash
 
- mysql -umty -pmeiduo -h 192.168.92.128 meiduo_test  < goods_data.sql;
+mysql -umeiduo_user -pmeiduo -h 172.16.179.139 meiduo_sh21 < goods_data.sql;
