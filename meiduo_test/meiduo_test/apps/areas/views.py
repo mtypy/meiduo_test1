@@ -13,6 +13,7 @@ from areas.serializers import AreaSerializer, SubAreaSerializer
 # Create your views here.
 class AreasViewSet(CacheResponseMixin, ReadOnlyModelViewSet):
     """地区视图集"""
+    pagination_class = None
     def get_serializer_class(self):
         if self.action == "list":  # 获取全部数据
             return AreaSerializer

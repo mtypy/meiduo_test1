@@ -1932,3 +1932,6 @@ INFO 2019-01-08 20:26:53,268 basehttp 124 "GET /admin/jsi18n/ HTTP/1.1" 200 7682
 INFO 2019-01-08 20:26:53,535 basehttp 124 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
 WARNING 2019-01-08 21:19:19,449 basehttp 124 "POST /authorizations/ HTTP/1.1" 400 41
 INFO 2019-01-08 21:19:59,194 basehttp 124 "POST /authorizations/ HTTP/1.1" 200 248
+INFO 2019-01-08 21:32:24,926 basehttp 124 "GET /categories/115/skus/ HTTP/1.1" 200 3227
+INFO 2019-01-08 21:35:41,221 basehttp 124 "GET /categories/115/skus/?ordering=price HTTP/1.1" 200 3227
+INFO 2019-01-08 21:43:58,874 basehttp 124 "GET /categories/115/skus/?ordering=price HTTP/1.1" 200 591

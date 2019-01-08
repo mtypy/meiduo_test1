@@ -1,4 +1,4 @@
-"""meiduo_test URL Configuration
+"""meiduo_mall URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
@@ -17,11 +17,12 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 urlpatterns = [
-    url('^admin/', admin.site.urls),
-    url('^', include("verifications.urls")),
-    url('^', include("users.urls")),
-    url('^oauth/', include("oauth.urls")),
-    url(r'^', include('areas.urls')),
+    url(r'^admin/', admin.site.urls),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
-
+    url(r'^', include('verifications.urls')),
+    url(r'^', include('users.urls')),
+    url(r'^oauth/', include('oauth.urls')),
+    url(r'^', include('areas.urls')),
+    url(r'^', include('goods.urls')),
+    # url(r'^', include('cart.urls')),
 ]
