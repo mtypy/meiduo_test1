@@ -305,6 +305,14 @@ REST_FRAMEWORK_EXTENSIONS = {
     'DEFAULT_USE_CACHE': 'default',
 }
 
+# FDFS文件存储配置
+FDFS_CLIENT_CONF = os.path.join(BASE_DIR, 'utils/fastdfs/client.conf')
+# FDFS Nginx的地址
+FDFS_NGINX_URL = 'http://image.meiduo.site:8888/'
+
+# 设置Django文件系统的存储类
+DEFAULT_FILE_STORAGE = 'meiduo_test.utils.fastdfs.fdfs_storage.FDFSStorage'
+
 
 # 富文本编辑器ckeditor配置
 CKEDITOR_CONFIGS = {
