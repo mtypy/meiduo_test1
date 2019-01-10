@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render
 from django_redis import get_redis_connection
 from rest_framework import status
@@ -8,10 +10,12 @@ from rest_framework.views import APIView
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet
+from rest_framework_jwt.settings import api_settings
+from rest_framework_jwt.views import ObtainJSONWebToken, jwt_response_payload_handler
 
+from cart.utils import merge_cookie_cart_to_redis
 from goods.models import SKU
 from goods.serializers import SKUSerializer
-
 from users import constants
 from users.serializers import EmailSerializer, AddressSerializer, AddressTitleSerializer, HistorySerializer
 from users.models import User
@@ -19,6 +23,31 @@ from users.serializers import UserSerializer, UserDetailSerializer
 
 
 # Create your views here.
+
+# POST /authorizations/
+class UserAuthorizeView(ObtainJSONWebToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            user = serializer.object.get('user') or request.user
+            token = serializer.object.get('token')
+            response_data = jwt_response_payload_handler(token, user, request)
+            response = Response(response_data)
+            if api_settings.JWT_AUTH_COOKIE:
+                expiration = (datetime.utcnow() +
+                              api_settings.JWT_EXPIRATION_DELTA)
+                response.set_cookie(api_settings.JWT_AUTH_COOKIE,
+                                    token,
+                                    expires=expiration,
+                                    httponly=True)
+
+            # 调用合并购物车记录函数
+            merge_cookie_cart_to_redis(request, user, response)
+            return response
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 # POST /browse_histories/
 class HistoryView(CreateAPIView):

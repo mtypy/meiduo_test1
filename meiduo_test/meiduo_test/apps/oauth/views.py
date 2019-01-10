@@ -4,6 +4,7 @@ from rest_framework.generics import GenericAPIView, CreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from cart.utils import merge_cookie_cart_to_redis
 from oauth.exceptions import QQAPIError
 from oauth.models import OAuthQQUser
 from oauth.serializers import QQAuthUserSerializer
@@ -15,6 +16,17 @@ from oauth.utils import OAuthQQ
 # GET /oauth/qq/user/?code=<code>
 class QQAuthUserView(CreateAPIView):
     serializer_class = QQAuthUserSerializer
+
+    def post(self, request):
+        # 调用`CreateAPIView`中的post完成绑定数据保存
+        response = super().post(request)
+
+        # 调用合并购物车记录函数
+        # 获取绑定用户
+        user = self.user
+        merge_cookie_cart_to_redis(request, user, response)
+
+        return response
 
     # def post(self, request):
     #     """
@@ -28,10 +40,13 @@ class QQAuthUserView(CreateAPIView):
     #     serializer.is_valid(raise_exception=True)
     #
     #     # 2. 保存绑定用户的数据并签发jwt token(create)
-    #     serializer.save()
+    #     user = serializer.save()
     #
     #     # 3. 返回应答，绑定成功
-    #     return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     # 调用合并购物车记录函数
+    #     response = Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     merge_cookie_cart_to_redis(request, user, response)
+    #     return response
 
     def get(self, request):
         """
@@ -91,7 +106,10 @@ class QQAuthUserView(CreateAPIView):
                 'token': token
             }
 
-            return Response(response_data)
+            # 调用合并购物车记录函数
+            response = Response(response_data)
+            merge_cookie_cart_to_redis(request, user, response)
+            return response
 
 
 # GET /oauth/qq/authorization/?next=<登录之后跳转页面的地址>
