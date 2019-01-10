@@ -9,8 +9,88 @@ from rest_framework.views import APIView
 
 # Create your views here.
 from cart import constants
-from cart.serializers import CartSerializer, CartSKUSerializer, CartDelSerializer
+from cart.serializers import CartSerializer, CartSKUSerializer, CartDelSerializer, CartSelectAllSerializer
 from goods.models import SKU
+
+
+# PUT /cart/selection/
+class CartSelectAllView(APIView):
+    def perform_authentication(self, request):
+        """让当前视图跳过DRF框架认证过程"""
+        pass
+
+    def put(self, request):
+        """
+        购物车记录全选和取消全选:
+        1. 获取参数并进行校验(selected必传)
+        2. 设置用户购物车记录的勾选状态
+            2.1 如果用户已登录，设置redis中购物车记录勾选状态
+            2.2 如果用户未登录，设置cookie中购物车记录勾选状态
+        3. 返回应答，设置成功
+        """
+        # 1. 获取参数并进行校验(selected必传)
+        serializer = CartSelectAllSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # 获取校验之后的数据
+        selected = serializer.validated_data['selected'] # True: 全选 False: 取消全选
+
+        try:
+            # 触发DRF认证过程
+            user = request.user
+        except Exception:
+            user = None
+
+        # 2. 设置用户购物车记录的勾选状态
+        if user and user.is_authenticated:
+            # 2.1 如果用户已登录，设置redis中购物车记录勾选状态
+            redis_conn = get_redis_connection('cart')
+
+            # 从redis hash获取用户购物车中所有商品的id
+            cart_key = 'cart_%s' % user.id
+
+            # (b'<sku_id>', b'<sku_id>', ...)
+            sku_ids = redis_conn.hkeys(cart_key)
+
+            cart_selected_key = 'cart_selected_%s' % user.id
+
+            if selected:
+                # 全选：将用户购物车中所有商品的id添加到set中
+                redis_conn.sadd(cart_selected_key, *sku_ids)
+            else:
+                # 取消全选：将用户购物车中所有商品的id从set中移除
+                redis_conn.srem(cart_selected_key, *sku_ids)
+
+            # 返回响应
+            return Response(serializer.validated_data)
+        else:
+            # 2.2 如果用户未登录，设置cookie中购物车记录勾选状态
+            # 获取cookie购物车数据
+            cookie_cart = request.COOKIES.get('cart')
+
+            if cookie_cart:
+                # 解析cookie购物车数据
+                # {
+                #     '<sku_id>': {
+                #         'count': '<count>',
+                #         'selected': '<selected>'
+                #     },
+                #     ...
+                # }
+                cart_dict = pickle.loads(base64.b64decode(cookie_cart))
+            else:
+                cart_dict = {}
+
+            # 设置购物车记录勾选状态
+            for sku_id in cart_dict:
+                cart_dict[sku_id]['selected'] = selected
+
+            # 3. 返回应答，设置成功
+            response = Response(serializer.data)
+            # 设置cookie购物车数据
+            cart_data = base64.b64encode(pickle.dumps(cart_dict)).decode()
+            response.set_cookie('cart', cart_data, max_age=constants.CART_COOKIE_EXPIRES)
+            return response
 
 
 class CartView(APIView):
