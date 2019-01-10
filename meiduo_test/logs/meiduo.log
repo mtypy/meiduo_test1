@@ -1935,3 +1935,5 @@ INFO 2019-01-08 21:19:59,194 basehttp 124 "POST /authorizations/ HTTP/1.1" 200 2
 INFO 2019-01-08 21:32:24,926 basehttp 124 "GET /categories/115/skus/ HTTP/1.1" 200 3227
 INFO 2019-01-08 21:35:41,221 basehttp 124 "GET /categories/115/skus/?ordering=price HTTP/1.1" 200 3227
 INFO 2019-01-08 21:43:58,874 basehttp 124 "GET /categories/115/skus/?ordering=price HTTP/1.1" 200 591
+INFO 2019-01-10 19:13:24,226 basehttp 124 "OPTIONS /authorizations/ HTTP/1.1" 200 0
+INFO 2019-01-10 19:13:24,380 basehttp 124 "POST /authorizations/ HTTP/1.1" 200 248
